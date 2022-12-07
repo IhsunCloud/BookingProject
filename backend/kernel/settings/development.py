@@ -1,4 +1,6 @@
 from .base import *
+from .packages import *
+from .secure import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
