@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django_otp.admin import OTPAdminSite
+
+# Secure Django Admin
+# admin.site.__class__ = OTPAdminSite
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
