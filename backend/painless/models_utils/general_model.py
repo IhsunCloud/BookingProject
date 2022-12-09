@@ -16,20 +16,17 @@ class GeneralModel(models.Model):
         unique = True,
         max_length = 128,
         allow_unicode = True,
+        help_text=_('Unique booking identifier. e.g.: paris-tour-dec-2022')
     )
     
     class Meta:
-        """
-        Meta information of General Model.
-        """
+        """ Meta information of General Model. """
         abstract = True
         verbose_name = _('General Model')
         verbose_name_plural = _('General Models')
     
     def save(self, *args, **kwargs):
-        """
-        Slugify the title.
-        """
+        """ Slugify the title. """
         if not self.slug:
             self.slug = slugify(self.title)
         super(GeneralModel, self).save(*args, **kwargs)
