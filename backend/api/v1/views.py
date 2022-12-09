@@ -1,0 +1,1 @@
+from api.v1.subviews.register import RegisterAPIView
