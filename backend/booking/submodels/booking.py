@@ -1,6 +1,6 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 from painless.models import GeneralModel, TimeStampedModel
 
@@ -91,6 +91,13 @@ class Booking(GeneralModel, TimeStampedModel):
         blank=True,
         help_text=_('Extra Info, including note or special request.'),
     )
+    
+    uuid = UrlsafeTokenField(
+        _('UUID'),
+        editable=False,
+        max_length=128
+    )
+    
 
     class Meta:
         """ Meta information of Booking. """
