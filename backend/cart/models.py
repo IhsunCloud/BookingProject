@@ -1,10 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from painless.models import TimeStampedModel
 
-
-class Order(TimeStampedModel):
+class Order(models.Model):
 	"""
  	Model definition for Orders.
   	"""
