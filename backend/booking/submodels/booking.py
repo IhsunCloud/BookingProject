@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-from painless.models import GeneralModel, TimeStampedModel
+from painless.models import SluggedModel, TimeStampedModel
 
 
-class Booking(GeneralModel, TimeStampedModel):
+class Booking(SluggedModel, TimeStampedModel):
     """
     Model definition of Booking.
     """

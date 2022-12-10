@@ -15,26 +15,26 @@ class BookingItem(models.Model):
 
     persons = models.PositiveIntegerField(
         _('Persons'),
-        null=True,
-        blank=True,
-        help_text=_('Quantity of persons, who are involved in this booking.'),
+        null = True,
+        blank = True,
+        help_text = _('Quantity of persons, who are involved in this booking.'),
     )
 
     subtotal = models.DecimalField(
         _('Subtotal'),
         max_digits=36,
-        decimal_places=2,
-        null=True,
-        blank=True,
-        help_text=_('Field for storing the price of each individual item.'),
+        decimal_places = 2,
+        null = True,
+        blank = True,
+        help_text = _('Field for storing the price of each individual item.'),
     )
 
     booking = models.ForeignKey(
         'booking.Booking',
-        on_delete= models.CASCADE,
-        related_name='bookings',
-        verbose_name=_('Booking'),
-        help_text=_('Connection to related booking.'),
+        on_delete = models.CASCADE,
+        related_name = 'bookings',
+        verbose_name = _('Booking'),
+        help_text = _('Connection to related booking.'),
     )
     
     # GFK `booked_item`
@@ -53,8 +53,3 @@ class BookingItem(models.Model):
     def __repr__(self):
         """ String representation of Booking. """
         return self.__str__()
-
-    @property
-    def price(self):
-        """ Returns the full price for subtotal * quantity """
-        return self.quantity * self.subtotal

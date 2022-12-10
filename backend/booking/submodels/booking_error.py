@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from painless.models import GeneralModel, TimeStampedModel
+from painless.models import SluggedModel, TimeStampedModel
 
 
-class BookingError(GeneralModel, TimeStampedModel):
+class BookingError(SluggedModel, TimeStampedModel):
     """
     Holds information about an error during a booking process.
     """
