@@ -1,1 +1,1 @@
-from api.v1.subviews.user.register import RegisterAPIView
+from api.v1.subviews.user.register import RegisterViewSet

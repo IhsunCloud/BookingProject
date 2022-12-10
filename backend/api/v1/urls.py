@@ -10,7 +10,7 @@ router = DefaultRouter()
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('register/', api_views_v1.RegisterAPIView.as_view()),
+    path('register/', api_views_v1.RegisterViewSet.as_view({'get': 'list'})),
     path('token/', jwt_views.TokenObtainPairView.as_view()),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view()),
 ]
