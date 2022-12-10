@@ -92,13 +92,6 @@ class Booking(SluggedModel, TimeStampedModel):
         help_text=_('Extra Info, including note or special request.'),
     )
     
-    uuid = UrlsafeTokenField(
-        _('UUID'),
-        editable=False,
-        max_length=128
-    )
-    
-
     class Meta:
         """ Meta information of Booking. """
         verbose_name = _('Booking')
