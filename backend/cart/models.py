@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from painless.utils.models.timestamped_model import TimeStampedModel
+
 
 class Order(models.Model):
 	"""
@@ -16,17 +18,16 @@ class Order(models.Model):
  
 	class Meta:
 		""" Meta information of Order. """
-		ordering = ('-created_at',)
 		verbose_name = _('Order')
 		verbose_name_plural = _('Orders')
 
 	def __str__(self):
 		""" Unicode representation of Orders. """
-		return  self.customer.fullname
+		return  self.customer.__str__
 	
 	def __repr__(self):
 		""" Unicode representation of Orders. """
-		return self.__str__()
+		return  self.customer.__str__
 
 
 class OrderItem(TimeStampedModel):
@@ -42,8 +43,8 @@ class OrderItem(TimeStampedModel):
 	)
  
 	booking = models.ForeignKey(
-	 	'cart.Booking',
-	  	related_name = 'order_items',
+	 	'booking.Booking',
+	  	related_name = 'booking',
 	   	verbose_name = _('Booking'),
 		on_delete    = models.CASCADE, 
   		null = True
@@ -67,7 +68,7 @@ class OrderItem(TimeStampedModel):
 
 	def __str__(self):
 		""" Unicode representation of Order Items. """
-		return f'{self.products.title} + {self.price}'
+		return f'{self.booking.title} + {self.price}'
 
 	def __repr__(self):
 		""" Unicode representation of Order Items. """
