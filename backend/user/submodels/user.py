@@ -22,6 +22,19 @@ class User(AbstractUser):
         max_length = 16
     )
     
+    phone_number = models.CharField(
+        _('Phone Number'),
+        max_length = 16,
+        unique = True,
+        blank  = False,
+    )
+    
+    otp = models.CharField(
+        _('OTP'),
+        max_length = 6,
+        help_text  = _('One Time Password. e.g.: 101010')
+    )
+    
     birthday = models.DateField(
         _('Birthday'),
         auto_now_add=True
@@ -29,7 +42,7 @@ class User(AbstractUser):
     
     gender = models.CharField(
         _('Gender'),
-        choices = None,
+        # choices = ,
         max_length = 2
     )
     
@@ -61,6 +74,14 @@ class User(AbstractUser):
         _('Zip Code'),
         max_length = 16
     )
+    
+    class Meta:
+        """
+        Meta definition of User.
+        """
+        managed = True
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
     
     def __str__(self):
         """ String representation of User."""
