@@ -10,7 +10,7 @@ from api.v1.serializers import (
     RegisterSerializer,
     VerifyOTPSerializer,
 )
-from user.models import MobileNumber
+from user.models import User
 
 
 def send_message_otp(phone_number,otp):
@@ -46,7 +46,7 @@ class RegisterAPIView(APIView):
 
     def post(self, request):
         phone_number = request.data['phone_number']
-        data = MobileNumber.objects.filter(phone_number = phone_number).first()
+        data = User.objects.filter(phone_number = phone_number).first()
         
         if data is not None:
             serializer = self.serializer_class(data = request.data)
@@ -101,7 +101,7 @@ class VerifyOTPView(APIView):
         otp_sent   = request.data['otp']
 
         if phone_number and otp_sent:
-            old_data = MobileNumber.objects.filter(phone_number = phone_number)
+            old_data = User.objects.filter(phone_number = phone_number)
             
             if old_data is not None:
                 old_data = otp_sent.first()
