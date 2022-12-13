@@ -14,14 +14,14 @@ class Booking(SluggedModel, TimeStampedModel):
         max_length=128,
         help_text=_('Custom unique booking identifier.')
     )
-    
+
     person = models.ForeignKey(
         'user.User',
         on_delete=models.CASCADE, # Change to SETNULL
         related_name='booking_persons',
         verbose_name=_('persons'),
     )
-    
+
     booking_status = models.ForeignKey(
         'booking.BookingStatus',
         on_delete=models.CASCADE, # Change to SETNULL
@@ -30,7 +30,7 @@ class Booking(SluggedModel, TimeStampedModel):
         null=True,
         help_text=_('Current status of the booking. e.g.: Approved')
     )
-    
+
     date_from = models.DateTimeField(
         verbose_name=_('From'),
         blank=True,
@@ -44,7 +44,7 @@ class Booking(SluggedModel, TimeStampedModel):
         null=True,
         help_text=_('Until when the booking is active.')
     )
-    
+
     time_period = models.PositiveIntegerField(
         _('Time Period'),
         blank=True,
@@ -59,7 +59,7 @@ class Booking(SluggedModel, TimeStampedModel):
         blank=True,
         help_text=_('What unit of time the period is of. e.g.: nights or days.')
     )
-    
+
     extra_persons = models.ForeignKey(
         'user.User',
         related_name = 'extra_persons',
@@ -68,7 +68,7 @@ class Booking(SluggedModel, TimeStampedModel):
         null=True,
         blank=True,
     )
-    
+
     total = models.DecimalField(
         _('Total'),
         max_digits=36,
@@ -84,14 +84,14 @@ class Booking(SluggedModel, TimeStampedModel):
         blank=True,
         help_text=_('If total is uses, We usually also need a currency.')
     )
-    
+
     extra_info = models.ForeignKey(
         'booking.ExtraPersonInfo',
         on_delete=models.CASCADE, # Change to SETNULL
         blank=True,
         help_text=_('Extra Info, including note or special request.'),
     )
-    
+
     class Meta:
         """ Meta information of Booking. """
         verbose_name = _('Booking')
