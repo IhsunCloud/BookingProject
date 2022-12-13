@@ -12,4 +12,8 @@ class User with $_User {
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  get id => null;
 }
+
+class $_User {}
