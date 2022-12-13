@@ -1,6 +1,8 @@
 from .base import INSTALLED_APPS
 
 # Custom Project
+INSTALLED_APPS.append('agency')
+INSTALLED_APPS.append('api')
 INSTALLED_APPS.append('booking')
 INSTALLED_APPS.append('cart')
 INSTALLED_APPS.append('user')
