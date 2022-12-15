@@ -1,3 +1,9 @@
-from django.db import models
-
-# Create your models here.
+from hotel.submodels.city import City
+from hotel.submodels.country import Country
+from hotel.submodels.hotel import Hotel
+from hotel.submodels.image import Image
+from hotel.submodels.passenger import Passenger
+from hotel.submodels.phone import Phone
+from hotel.submodels.reviews import Reviews
+from hotel.submodels.room import Room
+from hotel.submodels.state import State
