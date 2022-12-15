@@ -5,6 +5,8 @@ INSTALLED_APPS.append('agency')
 INSTALLED_APPS.append('api')
 INSTALLED_APPS.append('booking')
 INSTALLED_APPS.append('cart')
+INSTALLED_APPS.append('hotel')
+INSTALLED_APPS.append('painless')
 INSTALLED_APPS.append('user')
 
 # 3rd-Party Packages
