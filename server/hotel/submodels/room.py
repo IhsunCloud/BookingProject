@@ -85,6 +85,10 @@ class Room(SluggedModel, TimeStampedModel):
 		choices = RoomFeatures.choices,
 		blank   = True,
 	)
+ 
+	room_number = models.IntegerField(
+		_('Room Number'),
+	)
 
 	room_type = models.CharField(
 		_('Room Type'),

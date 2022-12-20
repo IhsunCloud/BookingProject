@@ -13,11 +13,16 @@ class Reviews(SluggedModel, TimeStampedModel):
     Model definition for Reviews.
 
     Args:
-		fullname (str): name of the author
-		is_active (bool): is the review active
-		rating (int): rating of the review
-		text (str): text of the review
-		featured (bool): is the review is helpful
+		 -fullname (str):
+  			name of the author
+		- is_active (bool):
+			is the review active
+		- rating (int):
+			rating of the review
+		- text (str):
+			text of the review
+		- featured (bool):
+			is the review is helpful
     """
 	fullname = models.CharField(
 		_('Fullname'),

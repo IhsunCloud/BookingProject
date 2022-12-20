@@ -2,23 +2,23 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from painless.models import TimeStampedModel
+from painless.fields import UserField
 
 
 class Bookmark(TimeStampedModel):
-    """AI is creating summary for Bookmark
+    """
+    Model definition of a bookmark.
 
     Args:
-        TimeStampedModel (fk): timestamped
+        - TimeStampedModel (fk):
+            timestamped
 
-        user (fk): user belongs the bookmark
-        hotel (fk): hotel belongs the bookmark
+        - user (fk):
+            user belongs the bookmark
+        - hotel (fk):
+            hotel belongs the bookmark
     """
-    user = models.ForeignKey(
-        'user.User',
-        on_delete    = models.CASCADE,
-        related_name = 'users',
-        verbose_name = _('User')
-    )
+    user = UserField()
 
     hotel = models.ForeignKey(
         'hotel.Hotel',
