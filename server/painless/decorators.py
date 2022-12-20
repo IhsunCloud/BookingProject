@@ -1,1 +1,1 @@
-from painless.utils.model_utils.decorators import connect
+from painless.utils.models.model_utils.decorators import connect

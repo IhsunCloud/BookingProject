@@ -14,7 +14,7 @@ from phonenumbers.phonenumberutil import (
     region_codes_for_country_code,
 )
 
-from painless.mixins.phonenumber.phonenumber import (
+from painless.utils.phonenumber.phonenumber import (
     PhoneNumber,
     to_python,
 )
@@ -41,7 +41,7 @@ def localized_choices(language):
     choices = [("", "---------")]
     locale_name = translation.to_locale(language)
     locale = babel.Locale(locale_name)
-    
+
     for region_code, country_code in REGION_CODE_TO_COUNTRY_CODE.items():
         region_name = locale.territories.get(region_code)
         if region_name:

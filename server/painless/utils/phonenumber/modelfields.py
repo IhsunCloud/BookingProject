@@ -4,9 +4,9 @@ from django.db import models
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from painless.mixins.phonenumber import formfields
-from painless.mixins.phonenumber.phonenumber import PhoneNumber, to_python, validate_region
-from painless.mixins.phonenumber.validators import validate_international_phonenumber
+from painless.utils.phonenumber import formfields
+from painless.utils.phonenumber.phonenumber import PhoneNumber, to_python, validate_region
+from painless.utils.phonenumber.validators import validate_international_phonenumber
 
 
 class PhoneNumberDescriptor:

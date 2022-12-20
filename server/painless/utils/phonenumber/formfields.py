@@ -7,9 +7,9 @@ from django.forms.fields import CharField
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
-from painless.mixins.phonenumber.phonenumber import to_python, validate_region
-from painless.mixins.phonenumber.validators import validate_international_phonenumber
-from painless.mixins.phonenumber.widgets import RegionalPhoneNumberWidget
+from painless.utils.phonenumber.phonenumber import to_python, validate_region
+from painless.utils.phonenumber.validators import validate_international_phonenumber
+from painless.utils.phonenumber.widgets import RegionalPhoneNumberWidget
 
 
 class PhoneNumberField(CharField):

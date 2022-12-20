@@ -6,6 +6,9 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
+
+from painless.model_utils import upload_path
 
 DEFAULT_CHOICES_NAME = 'STATUS'
 
@@ -66,7 +69,7 @@ class StatusField(models.CharField):
     """
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 100)
-        
+
         self.check_for_status = not kwargs.pop('no_check_for_status', False)
         self.choices_name = kwargs.pop('choices_name', DEFAULT_CHOICES_NAME)
         super().__init__(*args, **kwargs)
@@ -77,7 +80,7 @@ class StatusField(models.CharField):
                 "To use StatusField, the model '%s' must have a %s choices class attribute." \
                 % (sender.__name__, self.choices_name)
             self.choices = getattr(sender, self.choices_name)
-            
+
             if not self.has_default():
                 self.default = tuple(getattr(sender, self.choices_name))[0][0]  # set first as default
 
@@ -105,18 +108,18 @@ class MonitorField(models.DateTimeField):
     """
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('default', now)
-        
+
         monitor = kwargs.pop('monitor', None)
         if not monitor:
             raise TypeError(
                 '%s requires a "monitor" argument' % self.__class__.__name__)
         self.monitor = monitor
-        
+
         when = kwargs.pop('when', None)
         if when is not None:
             when = set(when)
         self.when = when
-        
+
         super().__init__(*args, **kwargs)
 
     def contribute_to_class(self, cls, name):
@@ -137,7 +140,7 @@ class MonitorField(models.DateTimeField):
         value = now()
         previous = getattr(model_instance, self.monitor_attname, None)
         current = self.get_monitored_value(model_instance)
-        
+
         if previous != current:
             if self.when is None or current in self.when:
                 setattr(model_instance, self.attname, value)
@@ -147,7 +150,7 @@ class MonitorField(models.DateTimeField):
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         kwargs['monitor'] = self.monitor
-        
+
         if self.when is not None:
             kwargs['when'] = self.when
         return name, path, args, kwargs
@@ -167,7 +170,7 @@ def get_excerpt(content):
     excerpt = []
     default_excerpt = []
     paras_seen = 0
-    
+
     for line in content.splitlines():
         if not line.strip():
             paras_seen += 1
@@ -219,11 +222,11 @@ class SplitDescriptor:
     def __get__(self, instance, owner):
         if instance is None:
             raise AttributeError('Can only be accessed via an instance.')
-        
+
         content = instance.__dict__[self.field.name]
         if content is None:
             return None
-        
+
         return SplitText(instance, self.field.name, self.excerpt_field_name)
 
     def __set__(self, obj, value):
@@ -272,58 +275,6 @@ class SplitField(models.TextField):
         return name, path, args, kwargs
 
 
-class UUIDField(models.UUIDField):
-    """
-    A field for storing universally unique identifiers. Use Python UUID class.
-    """
-    def __init__(
-        self,
-        primary_key=True,
-        version=4,
-        editable=False,
-        *args,
-        **kwargs
-    ):
-        """
-        Parameters
-        ----------
-        primary_key : bool
-            If True, this field is the primary key for the model.
-        version : int
-            An integer that set default UUID version.
-        editable : bool
-            If False, the field will not be displayed in the admin or any other ModelForm,
-            default is false.
-
-        Raises
-        ------
-        ValidationError
-            UUID version 2 is not supported.
-        """
-
-        if version == 2:
-            raise ValidationError(
-                'UUID version 2 is not supported.')
-
-        if version < 1 or version > 5:
-            raise ValidationError(
-                'UUID version is not valid.')
-
-        if version == 1:
-            default = uuid.uuid1
-        elif version == 3:
-            default = uuid.uuid3
-        elif version == 4:
-            default = uuid.uuid4
-        elif version == 5:
-            default = uuid.uuid5
-
-        kwargs.setdefault('primary_key', primary_key)
-        kwargs.setdefault('editable', editable)
-        kwargs.setdefault('default', default)
-        super().__init__(*args, **kwargs)
-
-
 class UrlsafeTokenField(models.CharField):
     """
     A field for storing a unique token in database.
@@ -361,7 +312,7 @@ class UrlsafeTokenField(models.CharField):
     def get_default(self):
         if self._factory is not None:
             return self._factory(self.max_length)
-        
+
         # generate a token of length x1.33 approx. trim up to max length
         token = secrets.token_urlsafe(self.max_length)[:self.max_length]
         return token
@@ -370,3 +321,99 @@ class UrlsafeTokenField(models.CharField):
         name, path, args, kwargs = super().deconstruct()
         kwargs['factory'] = self._factory
         return name, path, args, kwargs
+
+
+class USField(models.UUIDField):
+    """
+    A field for storing universally unique identifiers,
+    that's looks like My Grand Father,
+    who has created an FUCKING UNIQUE OBJECT,
+    which named yusef :)
+
+    Used Python UUID library.
+    """
+    def __init__(
+        self,
+        verbose_name = 'Yusef ID',
+        primary_key  = True,
+        editable = False,
+        version  = 4,
+        *args,
+        **kwargs
+    ):
+        """
+        Arguments:
+            primary_key (bool): If True, this field is the primary key for the model.
+            version (int): An integer that set default UUID version.
+            editable (bool): If False, the field will not be displayed in the admin or any other ModelForm.
+
+        Raises:
+            ValidationError
+                UUID version 2 is not supported.
+        """
+
+        if version == 2:
+            raise ValidationError(
+                'UUID version 2 is not supported.')
+
+        if version < 1 or version > 5:
+            raise ValidationError(
+                'UUID version is not valid.')
+
+        default = uuid.uuid4()
+        if version == 1:
+            default = uuid.uuid1
+        elif version == 3:
+            default = uuid.uuid3
+        elif version == 4:
+            default = uuid.uuid4
+        elif version == 5:
+            default = uuid.uuid5
+
+        kwargs.setdefault('default', default)
+        kwargs.setdefault('editable', editable)
+        kwargs.setdefault('primary_key', primary_key)
+        kwargs.setdefault('verbose_name', verbose_name)
+        super().__init__(*args, **kwargs)
+
+
+class UserField(models.ForeignKey):
+    """
+    An abstract base class,
+    that provides foreignKey to user model.
+    """
+    def __init__(
+        self,
+        to = settings.AUTH_USER_MODEL,
+        on_delete = models.CASCADE,
+        related_name = 'users',
+        verbose_name = 'User',
+        *args,
+        **kwargs
+    ):
+        kwargs.setdefault('to', settings.AUTH_USER_MODEL)
+        kwargs.setdefault('on_delete', models.CASCADE)
+        kwargs.setdefault('related_name', 'users')
+        kwargs.setdefault('verbose_name', _('User'))
+        super().__init__(*args, **kwargs)
+
+
+class ImageField(models.ImageField):
+    def __init__(
+        self,
+        image = None,
+        upload_to  = upload_path,
+        height_field = None,
+        width_field  = None,
+        validators = [],
+        verbose_name = None,
+        *args,
+        **kwargs
+    ):
+        kwargs.setdefault('image', None)
+        kwargs.setdefault('upload_to', upload_path)
+        kwargs.setdefault('height_field', None)
+        kwargs.setdefault('width_field', None)
+        kwargs.setdefault('validators', [])
+        kwargs.setdefault('verbose_name', _('Image'))
+        super.__init__(*args, **kwargs)
