@@ -1,14 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from painless.models import (
-	SluggedModel,
-	TimeStampedModel
-)
-from hotel.choices import PropertyAmenities
+from painless.model_utils import upload_path
+from painless.models import GeneralModel
+
+from hotel.utils.choices import PropertyAmenities
 
 
-class Hotel(SluggedModel, TimeStampedModel):
+class Hotel(GeneralModel):
 	"""
 	Model definition of the hotel.
 
@@ -33,7 +32,7 @@ class Hotel(SluggedModel, TimeStampedModel):
 		help_text = _('Capacity of the hotel. e.g: `150`')
 	)
 
-	descriptor = models.TextField(
+	description = models.TextField(
 		_('Description')
 	)
 
@@ -42,9 +41,14 @@ class Hotel(SluggedModel, TimeStampedModel):
 		help_text = _('Establishment date. e.g: `2015-01-01')
 	)
 
+	hotel_class = models.FloatField(
+		_('Rating of the hotel'),
+		help_text = _('Rating of the hotel. e.g: `5')
+	)
+
 	logo = models.ImageField(
-		_('Image'),
-		upload_to = 'hotel/logo/',
+		_('Logo'),
+		upload_to = upload_path,
 		blank = True
 	)
 
@@ -54,22 +58,21 @@ class Hotel(SluggedModel, TimeStampedModel):
 		help_text  = _('Name of the hotel. e.g. `Espinas International Hotel, At The Boulevard`')
 	)
 
-	hotel_class = models.FloatField(
-		_('Rating of the hotel'),
-		help_text = _('Rating of the hotel. e.g: `5')
-	)
- 
 	property_amenities = models.CharField(
 		_('Property Amenities'),
 		choices = PropertyAmenities.choices,
 		blank   = True
-    )
+	)
+
+	rooms_number = models.IntegerField(
+		_('Number of Rooms')
+	)
 
 	class Meta:
 		""" Meta definition of the Hotel. """
 		ordering = ('name', '-hotel_class',)
-		verbose_name = 'Hotel'
-		verbose_name_plural = 'Hotels'
+		verbose_name = _('Hotel')
+		verbose_name_plural = _('Hotels')
 
 	def __str__(self):
 		""" Unicode representation of the hotel. """
@@ -78,3 +81,8 @@ class Hotel(SluggedModel, TimeStampedModel):
 	def __repr__(self):
 		""" Unicode representation of the hotel. """
 		return self.__str__()
+
+	@property
+	def descriptor(self):
+		""" The descriptor of the hotel. """
+		return f"NAME: {self.name}, 💫: CLS: {self.hotel_class}, DESC: {self.description}, ADDRESS: {self.address}"
