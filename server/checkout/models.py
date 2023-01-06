@@ -70,10 +70,11 @@ class OrderItem(TimeStampedModel):
 
 
 class PriceBooking(TimeStampedModel):
-	price = models.DecimalField(
-	 	_("Price"),
-	  	max_digits = 10,
-	   	decimal_places = 0,
+	price = models.ForeignKey(
+		'Price',
+		on_delete = models.CASCADE,
+		related_name = 'price',
+		verbose_name = _('Price')
 	)
 
 	order = models.ForeignKey(
@@ -93,3 +94,93 @@ class PriceBooking(TimeStampedModel):
 		max_digits = 5,
 		decimal_places = 2
 	)
+
+
+class Currency(models.Model):
+    """
+    Model definition of the Currency.
+    """
+    name = models.CharField(
+        _('Name'),
+        max_length = 64
+    )
+    code = models.CharField(
+        _('Code'),
+        max_length = 4
+    )
+
+    def __str__(self):
+        return f'{self.name} ~ {self.code}'
+
+
+class Price(models.Model):
+    """
+    Model definition of the Price.
+    """
+    value = models.FloatField(
+        _('Value'),
+        default=0.0
+    )
+
+    from_date = models.DateField(
+        _('From Date'),
+        null  = True,
+        blank = True
+    )
+
+    to_date = models.DateField(
+        _('To Date'),
+        null  = True,
+        blank = True
+    )
+
+    ratio = models.FloatField(
+        _('Ratio'),
+        default = 0.0
+    )
+
+    currency = models.ForeignKey(
+        _('Currency'),
+        Currency,
+        on_delete    = models.CASCADE,
+        related_name = 'currency'
+    )
+
+    def __str__(self):
+        """ String representation of the Price. """
+        return '{} ({})'.format(str(self.value), self.currency.code)
+
+    def __repr__(self) -> str:
+        """ String representation of the Price. """
+        return super().__repr__()
+
+
+class CurrencyExchangeRate(models.Model):
+    """
+    Model definition of the Currency Exchange Rate.
+    """
+    rate = models.FloatField(
+        _('Rate'),
+    )
+
+    currency_from = models.ForeignKey(
+        'Currency',
+        verbose_name = _('Currency From'),
+        on_delete = models.CASCADE,
+        related_name = "currency_from"
+    )
+
+    currency_to = models.ForeignKey(
+        'Currency',
+        verbose_name = _('Currency to'),
+        on_delete    = models.CASCADE,
+        related_name = "currency_to"
+    )
+
+    def __str__(self):
+        """ String representation of the Currency Exchange Rate. """
+        return "{}/{}: {}".format(self.currency_from.code, self.currency_to.code, str(self.rate))
+
+    def __repr__(self) -> str:
+        """ String representation of the Currency Exchange Rate. """
+        return super().__repr__()

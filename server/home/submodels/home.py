@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -112,18 +113,18 @@ class Home(GeneralModel):
 		help_text = _('Capacity of the room. e.g: `2`')
 	)
 
-	room_feature = models.CharField(
+	room_feature = ArrayField(
 		_('Room Feature'),
 		max_length = 3,
 		choices = HomeFeatures.choices,
-		blank   = True,
+		blank   = True
 	)
- 
+
 	room_number = models.IntegerField(
 		_('Room Number'),
 	)
 
-	room_type = models.CharField(
+	room_type = ArrayField(
 		_('Room Type'),
 		max_length = 3,
 		choices    = HomeTypes.choices,
