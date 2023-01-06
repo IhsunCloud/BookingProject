@@ -87,8 +87,8 @@ class PriceBooking(TimeStampedModel):
 	)
 
 	has_discounts = models.BooleanField(
-	 _('Discount'),
-	 default = False
+	    _('Discount'),
+	    default = False
 	)
 
 	discount = models.DecimalField(
@@ -100,7 +100,8 @@ class PriceBooking(TimeStampedModel):
 	def add_discount(self, country, subdiv):
 		us_holidays = holidays.country_holidays(country='US', subdiv='PR')
 		if self.order.created_at in us_holidays:
-			# add logic ...
+			has_discounts = True
+			# add some logic ...
 			pass
 
 
@@ -112,6 +113,7 @@ class Currency(models.Model):
 		_('Name'),
 		max_length = 64
 	)
+
 	code = models.CharField(
 		_('Code'),
 		max_length = 4

@@ -19,7 +19,6 @@ class Room(SluggedModel, TimeStampedModel):
 
 		passenger (fk): passengers
 		beds_number (int): number of beds
-		departure_at (datetime): departure timestamp
 		entry_at (datetime): entry timestamp
 		hotel (fk): hotel of the room
 		is_premium (bool): is the room is premium
