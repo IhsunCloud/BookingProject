@@ -1,16 +1,15 @@
-from django.conf import settings
-from rest_framework import permissions
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet 
+from rest_framework.viewsets import ModelViewSet
 
 from api.v1.serializers import (
 	RegisterSerializer,
-	VerifyOTPSerializer,
+	VerifyOTPSerializer
 )
 
-from painless.models import send_message_otp
-from user.models import User
+from painless.models import User
+from painless.model_utils import send_message_otp
+
 
 class RegisterViewSet(ModelViewSet):
 	serializer_class  = RegisterSerializer
@@ -20,7 +19,7 @@ class RegisterViewSet(ModelViewSet):
 	def post(self, request):
 		phone_number = request.data['phone_number']
 		data = User.objects.filter(phone_number = phone_number).first()
-		
+
 		if data is not None:
 			serializer = self.serializer_class(data = request.data)
 			phone_number = request.data['phone_number']
@@ -40,7 +39,7 @@ class RegisterViewSet(ModelViewSet):
 		else:
 			serializer   = self.serializer_class(data = request.data)
 			phone_number = request.data['phone_number']
-			
+
 		if serializer.is_valid(raise_exception = True):
 			instance = serializer.save()
 			content  = {
