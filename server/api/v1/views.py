@@ -77,7 +77,7 @@ class HotelViewSet(viewsets.ModelViewSet):
 	serializer_class = serializers.HotelSerializer
 	queryset = Hotel.objects.filter(
 		entry_at__gte= timezone.now(), is_reserved=False).all()
-    
+
 	filter_backends  = (filters.SearchFilter,)
 
 	search_fields = [

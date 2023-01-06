@@ -15,8 +15,8 @@ INSTALLED_APPS.append('hotel')
 INSTALLED_APPS.append('home')
 INSTALLED_APPS.append('painless')
 INSTALLED_APPS.append('tour')
-
 # 3rd-Party Packages
+INSTALLED_APPS.append('django_extensions')
 INSTALLED_APPS.append('django_otp')
 INSTALLED_APPS.append('django_otp.plugins.otp_totp')
 INSTALLED_APPS.append('djoser')

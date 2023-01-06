@@ -1,6 +1,7 @@
 # ----------- iModels ------------ #
 # Define Abstract Base Class Models:
 from painless.utils.models.address_model import AddressModel
+from painless.utils.models.address_model import Address
 from painless.utils.models.general_model import GeneralModel
 from painless.utils.models.generic_model import GenericModel
 from painless.utils.models.slugged_model import SluggedModel

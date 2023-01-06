@@ -34,6 +34,7 @@ from api.v1.subserializers.hotel.serializers import PhoneSerializer
 from api.v1.subserializers.hotel.serializers import ReviewsSerializer
 from api.v1.subserializers.hotel.serializers import RoomSerializer
 from api.v1.subserializers.painless.serializers import AddressSerializer
+from api.v1.subserializers.painless.serializers import AddressModelSerializer
 from api.v1.subserializers.user.serializers import UserSerializer
 from api.v1.subserializers.user.serializers import RegisterSerializer
 from api.v1.subserializers.user.serializers import VerifyOTPSerializer
