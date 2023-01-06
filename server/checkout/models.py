@@ -1,3 +1,5 @@
+import holidays
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -85,102 +87,108 @@ class PriceBooking(TimeStampedModel):
 	)
 
 	has_discounts = models.BooleanField(
-     _('Discount'),
-     default = False
+	 _('Discount'),
+	 default = False
 	)
 
 	discount = models.DecimalField(
-    	_('Discount'),
+		_('Discount'),
 		max_digits = 5,
 		decimal_places = 2
 	)
 
+	def add_discount(self, country, subdiv):
+		us_holidays = holidays.country_holidays(country='US', subdiv='PR')
+		if self.order.created_at in us_holidays:
+			# add logic ...
+			pass
+
 
 class Currency(models.Model):
-    """
-    Model definition of the Currency.
-    """
-    name = models.CharField(
-        _('Name'),
-        max_length = 64
-    )
-    code = models.CharField(
-        _('Code'),
-        max_length = 4
-    )
+	"""
+	Model definition of the Currency.
+	"""
+	name = models.CharField(
+		_('Name'),
+		max_length = 64
+	)
+	code = models.CharField(
+		_('Code'),
+		max_length = 4
+	)
 
-    def __str__(self):
-        return f'{self.name} ~ {self.code}'
+	def __str__(self):
+		return f'{self.name} ~ {self.code}'
 
 
 class Price(models.Model):
-    """
-    Model definition of the Price.
-    """
-    value = models.FloatField(
-        _('Value'),
-        default=0.0
-    )
+	"""
+	Model definition of the Price.
+	"""
+	value = models.FloatField(
+		_('Value'),
+		default=0.0
+	)
 
-    from_date = models.DateField(
-        _('From Date'),
-        null  = True,
-        blank = True
-    )
+	from_date = models.DateField(
+		_('From Date'),
+		null  = True,
+		blank = True
+	)
 
-    to_date = models.DateField(
-        _('To Date'),
-        null  = True,
-        blank = True
-    )
+	to_date = models.DateField(
+		_('To Date'),
+		null  = True,
+		blank = True
+	)
 
-    ratio = models.FloatField(
-        _('Ratio'),
-        default = 0.0
-    )
+	ratio = models.FloatField(
+		_('Ratio'),
+		default = 0.0
+	)
 
-    currency = models.ForeignKey(
-        _('Currency'),
-        Currency,
-        on_delete    = models.CASCADE,
-        related_name = 'currency'
-    )
+	currency = models.ForeignKey(
+		_('Currency'),
+		Currency,
+		on_delete    = models.CASCADE,
+		related_name = 'currency'
+	)
 
-    def __str__(self):
-        """ String representation of the Price. """
-        return '{} ({})'.format(str(self.value), self.currency.code)
+	def __str__(self):
+		""" String representation of the Price. """
+		return '{} ({})'.format(str(self.value), self.currency.code)
 
-    def __repr__(self) -> str:
-        """ String representation of the Price. """
-        return super().__repr__()
+	def __repr__(self) -> str:
+		""" String representation of the Price. """
+		return super().__repr__()
 
 
 class CurrencyExchangeRate(models.Model):
-    """
-    Model definition of the Currency Exchange Rate.
-    """
-    rate = models.FloatField(
-        _('Rate'),
-    )
+	"""
+	Model definition of the Currency Exchange Rate.
+	"""
+	rate = models.FloatField(
+		_('Rate'),
+	)
 
-    currency_from = models.ForeignKey(
-        'Currency',
-        verbose_name = _('Currency From'),
-        on_delete = models.CASCADE,
-        related_name = "currency_from"
-    )
+	currency_from = models.ForeignKey(
+		'Currency',
+		verbose_name = _('Currency From'),
+		on_delete = models.CASCADE,
+		related_name = "currency_from"
+	)
 
-    currency_to = models.ForeignKey(
-        'Currency',
-        verbose_name = _('Currency to'),
-        on_delete    = models.CASCADE,
-        related_name = "currency_to"
-    )
+	currency_to = models.ForeignKey(
+		'Currency',
+		verbose_name = _('Currency to'),
+		on_delete    = models.CASCADE,
+		related_name = "currency_to"
+	)
 
-    def __str__(self):
-        """ String representation of the Currency Exchange Rate. """
-        return "{}/{}: {}".format(self.currency_from.code, self.currency_to.code, str(self.rate))
+	def __str__(self):
+		""" String representation of the Currency Exchange Rate. """
+		return "{}/{}: {}".format(self.currency_from.code, self.currency_to.code, str(self.rate))
 
-    def __repr__(self) -> str:
-        """ String representation of the Currency Exchange Rate. """
-        return super().__repr__()
+	def __repr__(self) -> str:
+		""" String representation of the Currency Exchange Rate. """
+		return super().__repr__()

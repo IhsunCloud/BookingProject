@@ -22,6 +22,16 @@ class Airplane(models.Model):
           -----------------
             -> the destination associated
     """
+    class FlightChoice(models.TextChoices):
+        CHARTER = 'CT', 'Charter'
+        NORMAL  = 'NM', 'Normal'
+
+    flight_type = models.CharField(
+        max_length = 2,
+        choices = FlightChoice.CHOICES,
+        default = FlightChoice.NORMAL
+    )
+
     agency = models.ForeignKey(
         'agency.Agency',
         on_delete = models.CASCADE,
@@ -47,13 +57,3 @@ class Airplane(models.Model):
         related_name = 'destination',
         verbose_name = _('The destination associated')
     )
-
-
-    def __str__(self):
-        pass
-
-    def save(self):
-        pass
-
-    class Meta:
-        pass

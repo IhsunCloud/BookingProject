@@ -329,13 +329,9 @@ class UrlsafeTokenField(models.CharField):
 
 class USField(models.UUIDField):
     """
-    When traumatic memories convert to code.
+    When Traumatic Memories Become as a Code.
 
     A field for storing universally unique identifiers,
-    that's looks like My Grand Father,
-    who's created an FUCKING UNIQUE OBJECT,
-    which named yusef :)
-
     Used Python UUID library.
     """
     def __init__(
