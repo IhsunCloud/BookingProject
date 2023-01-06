@@ -8,7 +8,7 @@ class CartAddBookingForm(forms.Form):
         choices = BOOKING_COUNT_CHOICES,
         coerce  = int
     )
-    
+
     update = forms.BooleanField(
         required = False,
         initial  = False,

@@ -2,12 +2,22 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-from painless.fields import USField
+from painless import fields as iFields
 
 
 class SluggedModel(models.Model):
 	"""
 	Model definition of General Model.
+	----------------------------------
+
+	Arguments:
+	----------
+		- title (str):
+		--------------
+  			-> Title of the model.
+		- slug (slug):
+		--------------
+  			-> Slug of the model.
 	"""
 	title = models.CharField(
 		_('Title'),
@@ -61,7 +71,7 @@ class SluggedModel(models.Model):
 
 		# For titles like `!@#$!@#$`, slugify returns an empty string.
 		if slug == '':
-			slug = str(USField)[:7]
+			slug = str(iFields.USField)[:7]
 		return slug[:256]
 
 	def save(self, *args, **kwargs):

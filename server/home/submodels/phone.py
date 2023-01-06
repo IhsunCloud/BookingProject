@@ -4,10 +4,11 @@ from django.utils.translation import gettext_lazy as _
 
 class Phone(models.Model):
 	"""
-	Model definition of a phone number.
+	Model definition of a PhoneNumber.
+	----------------------------------
 	"""
-	hotel = models.ForeignKey(
-		'hotel.Hotel',
+	home = models.ForeignKey(
+		'home.Home',
 		on_delete = models.CASCADE,
 		related_name = 'hotels',
 		verbose_name = _('Hotel')

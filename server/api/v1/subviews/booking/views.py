@@ -9,12 +9,7 @@ from booking.models import Booking
 from api.v1.serializers import BookingSerializer
 
 
-class BookingViewSet(
-        mixins.CreateModelMixin,
-        mixins.ListModelMixin,
-        mixins.RetrieveModelMixin,
-        viewsets.GenericViewSet
-    ):
+class BookingViewSet(viewsets.ModelViewSet):
     """
     A ViewSet for CRUD Bookings.
     """
@@ -23,13 +18,6 @@ class BookingViewSet(
 
     queryset = Booking.objects.filter(
         date_from__gt = datetime.now()).all()
-
-    http_method_names = [
-        'get',
-        'post',
-        'put',
-        'head'
-    ]
 
     search_fields = [
         'date_from',

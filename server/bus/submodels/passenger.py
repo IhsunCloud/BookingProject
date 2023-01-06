@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from painless import models as iModels
 
+
 class Passenger(iModels.GeneralModel):
 	"""
  	Model definition of Passenger.
@@ -32,7 +33,6 @@ class Passenger(iModels.GeneralModel):
 		on_delete    = models.CASCADE,
 		related_name = 'underage_passengers',
 		verbose_name = _('Underages'),
-		null = True
 	)
 
 	class Meta:
@@ -48,7 +48,7 @@ class Adult(iModels.TimeStampedModel):
     adult = models.ForeignKey(
 		settings.AUTH_USER_MODEL,
 		on_delete    = models.CASCADE,
-		related_name = 'hotel_adult_passengers',
+		related_name = 'adults',
 		verbose_name = _('Adult'),
 	)
 
@@ -65,7 +65,7 @@ class Underage(iModels.TimeStampedModel):
     underages = models.ForeignKey(
 		settings.AUTH_USER_MODEL,
 		on_delete    = models.CASCADE,
-		related_name = 'hotel_underage_passengers',
+		related_name = 'underages',
 		verbose_name = _('Underage'),
 	)
 
@@ -73,4 +73,3 @@ class Underage(iModels.TimeStampedModel):
 		_('Underage Members'),
         default = 0
 	)
-

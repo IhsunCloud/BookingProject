@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from painless.models import SluggedModel, TimeStampedModel
-from hotel.choices import (
+from hotel.utils.choices import (
     PropertyAmenities,
     RoomFeatures,
     RoomTypes,
@@ -46,7 +46,7 @@ class Room(SluggedModel, TimeStampedModel):
 	hotel = models.ForeignKey(
 		'hotel.Hotel',
 		on_delete = models.CASCADE,
-		related_name = 'hotels',
+		related_name = 'hotel_rooms',
 		verbose_name = _('Hotel Room'),
 	)
 
@@ -65,13 +65,15 @@ class Room(SluggedModel, TimeStampedModel):
 	passenger = models.ForeignKey(
 		'hotel.Passenger',
 		on_delete = models.CASCADE,
-		related_name = 'passengers',
+		related_name = 'room_passengers',
 		verbose_name = _('Passenger')
 	)
 
 	price = models.DecimalField(
     	_('Price'),
-		help_text = _('Price of the room per days. e.g: `$1750`')
+		decimal_places = 2,
+		max_digits = 10,
+		help_text  = _('Price of the room per days. e.g: `$1750`')
     )
 
 	room_capacity = models.SmallIntegerField(
@@ -85,7 +87,7 @@ class Room(SluggedModel, TimeStampedModel):
 		choices = RoomFeatures.choices,
 		blank   = True,
 	)
- 
+
 	room_number = models.IntegerField(
 		_('Room Number'),
 	)

@@ -7,8 +7,9 @@ from .trashable_model import TrashableModel
 
 class TimeStampedModel(TrashableModel):
     """
-    An AbstractBaseModel,
-    that provides self-updating:
+    Model definition of the TimeStamped.
+
+    An AbstractBaseModel, that provides self-updating:
         - created_at
         - deleted_at
         - modified_at
@@ -17,11 +18,9 @@ class TimeStampedModel(TrashableModel):
     created_at = models.DateTimeField(_('Created At'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Updated At'), auto_now=True)
 
-    manager    = SoftDeletableManager()
+    # manager    = SoftDeletableManager()
 
     class Meta:
-        """
-        Meta definition of TimeStampedModel.
-        """
+        """ Meta definition of TimeStampedModel. """
         abstract = True
         ordering = ('-created_at',)

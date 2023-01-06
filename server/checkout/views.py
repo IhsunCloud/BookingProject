@@ -6,8 +6,8 @@ from django.shortcuts import (
 from django.views import generic
 
 from booking.models import Booking
-from cart.cart import Cart
-from cart.forms import CartAddBookingForm
+from checkout.cart import Cart
+from checkout.forms import CartAddBookingForm
 
 
 class CartAddView(generic.View):
@@ -16,7 +16,7 @@ class CartAddView(generic.View):
         cart = Cart(request)
         booking = get_object_or_404(Booking, id = pk)
         form = CartAddBookingForm(request.POST)
-        
+
         if form.is_valid():
             cd = form.cleaned_data
             cart.add(

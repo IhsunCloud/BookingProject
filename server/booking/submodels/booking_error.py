@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from painless.models import SluggedModel, TimeStampedModel
+from painless import models as iModels
 
 
-class BookingError(SluggedModel, TimeStampedModel):
+class BookingError(iModels.SluggedModel, iModels.TimeStampedModel):
     """
     Holds information about an error during a booking process.
     """
@@ -15,21 +15,21 @@ class BookingError(SluggedModel, TimeStampedModel):
         verbose_name=_('Booking'),
         help_text=_(' The booking during this error occurred.'),
     )
-    
+
     message = models.CharField(
         _('Message'),
         max_length=1000,
         blank=True,
         help_text=_('The short error message, that you need to store.'),
     )
-    
+
     details = models.TextField(
         _('Details'),
         max_length=4000,
         blank=True,
         help_text=_('A more in depth text about the error or any kind of additional information, e.g. a traceback.'),
     )
-    
+
     class Meta:
         """ Meta definition of Booking ERROR. """
         ordering = ('-created_at',)

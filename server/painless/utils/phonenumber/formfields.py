@@ -16,7 +16,7 @@ class PhoneNumberField(CharField):
     default_validators = [validate_international_phonenumber]
     widget = RegionalPhoneNumberWidget
 
-    def __init__(self, *args, region=None, widget=None, **kwargs):
+    def __init__(self, region=None, widget=None, *args, **kwargs):
         """
         :keyword str region: 2-letter country code as defined in ISO 3166-1.
             When not supplied, defaults to :setting:`PHONENUMBER_DEFAULT_REGION`
@@ -32,7 +32,7 @@ class PhoneNumberField(CharField):
             except TypeError:
                 widget = self.widget()
 
-        super().__init__(*args, widget=widget, **kwargs)
+        super().__init__(widget=widget, region=region, *args, **kwargs)
         self.widget.input_type = "tel"
 
         if "invalid" not in self.error_messages:

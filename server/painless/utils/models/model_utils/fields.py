@@ -287,19 +287,23 @@ class UrlsafeTokenField(models.CharField):
         **kwargs
     ):
         """
-        Parameters
+        Arguments:
         ----------
-        editable: bool
-            If true token is editable.
-        max_length: int
-            Maximum length of the token.
-        factory: callable
-            If provided, called with max_length of the field instance to generate token.
+            editable (bool):
+            ----------------
+                -> If true token is editable.
+            max_length (int):
+            -----------------
+                -> Maximum length of the token.
+            factory (callable):
+            -------------------
+                -> If provided, called with max_length of the field instance to generate token.
 
-        Raises
-        ------
-        TypeError
-            non-callable value for factory is not supported.
+        Raises:
+        -------
+            TypeError:
+            ----------
+                -> non-callable value for factory is not supported.
         """
         if factory is not None and not isinstance(factory, Callable):
             raise TypeError("'factory' should either be a callable not 'None'")
@@ -325,9 +329,11 @@ class UrlsafeTokenField(models.CharField):
 
 class USField(models.UUIDField):
     """
+    When traumatic memories convert to code.
+
     A field for storing universally unique identifiers,
     that's looks like My Grand Father,
-    who has created an FUCKING UNIQUE OBJECT,
+    who's created an FUCKING UNIQUE OBJECT,
     which named yusef :)
 
     Used Python UUID library.
@@ -376,26 +382,23 @@ class USField(models.UUIDField):
         kwargs.setdefault('verbose_name', verbose_name)
         super().__init__(*args, **kwargs)
 
+# from painless.models import User
 
-class UserField(models.ForeignKey):
-    """
-    An abstract base class,
-    that provides foreignKey to user model.
-    """
-    def __init__(
-        self,
-        to = settings.AUTH_USER_MODEL,
-        on_delete = models.CASCADE,
-        related_name = 'users',
-        verbose_name = 'User',
-        *args,
-        **kwargs
-    ):
-        kwargs.setdefault('to', settings.AUTH_USER_MODEL)
-        kwargs.setdefault('on_delete', models.CASCADE)
-        kwargs.setdefault('related_name', 'users')
-        kwargs.setdefault('verbose_name', _('User'))
-        super().__init__(*args, **kwargs)
+# class UserField(models.ForeignKey):
+#     """
+#     An abstract base class,
+#     that provides foreignKey to user model.
+#     """
+#     def __init__(
+#         self,
+#         to = User,
+#         on_delete = models.CASCADE,
+#         *args,
+#         **kwargs
+#     ):
+#         kwargs.setdefault('to', User)
+#         kwargs.setdefault('on_delete', models.CASCADE)
+#         super().__init__(*args, **kwargs)
 
 
 class ImageField(models.ImageField):

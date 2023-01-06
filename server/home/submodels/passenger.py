@@ -4,21 +4,26 @@ from django.utils.translation import gettext_lazy as _
 
 from painless import models as iModels
 
+User = getattr(settings, 'AUTH_USER_MODEL', 'painless.User')
+
+
 class Passenger(iModels.GeneralModel):
 	"""
  	Model definition of Passenger.
+	------------------------------
 
-	Args:
+	Arguments:
+	----------
 		- SluggedModel (str):
-			contains title & slug
+			-> contains title & slug
 		- TimeStampedModel (datetime):
-			contains timestamp filed
+			-> contains timestamp filed
 		- adult: (fk):
-			adult passengers
+			-> adult passengers
 		- members: (int) :
-			member of passengers
+			-> member of passengers
 	    - underage: (fk):
-			underage passengers
+			-> underage passengers
 	"""
 	adult = models.ForeignKey(
 		'Adult',
@@ -46,9 +51,9 @@ class Adult(iModels.TimeStampedModel):
     Model definition of an adult passenger.
     """
     adult = models.ForeignKey(
-		settings.AUTH_USER_MODEL,
+		User,
 		on_delete    = models.CASCADE,
-		related_name = 'hotel_adult_passengers',
+		related_name = 'adult_passengers',
 		verbose_name = _('Adult'),
 	)
 
@@ -63,9 +68,9 @@ class Underage(iModels.TimeStampedModel):
     Model definition of an underage passenger.
     """
     underages = models.ForeignKey(
-		settings.AUTH_USER_MODEL,
+		User,
 		on_delete    = models.CASCADE,
-		related_name = 'hotel_underage_passengers',
+		related_name = 'underage_passengers',
 		verbose_name = _('Underage'),
 	)
 

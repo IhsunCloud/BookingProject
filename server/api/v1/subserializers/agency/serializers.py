@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from agency.models import Agency, PhoneNumber
-from painless.models import AddressModel
+from booking.models import Booking
+from painless.models import AddressModel, User
 
 from ..booking.serializers import BookingSerializer
 from ..user.serializers import UserSerializer
@@ -15,13 +16,15 @@ class PhoneNumberSerializer(serializers.ModelSerializer):
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AddressModel
+        model  = AddressModel
+        fields = '__all__'
 
 
 class AgencySerializer(serializers.ModelSerializer):
-    booking = BookingSerializer()
-    user  = UserSerializer()
-    phone = PhoneNumberSerializer()
+    address = AddressSerializer(many=True)
+    booking = BookingSerializer(many=True)
+    phone = PhoneNumberSerializer(many=True)
+    user  = UserSerializer(many=True)
 
     class Meta:
       model  = Agency

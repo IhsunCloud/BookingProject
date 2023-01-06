@@ -25,7 +25,7 @@ class RoomFeatures(models.TextChoices):
 
 class PropertyAmenities(models.TextChoices):
     AIRPORT_TRANSPORTATION = 'AT', ('Airport transportation')
-    FREE_BREKFEAST         = 'FB', ('Free breakfast')
+    FREE_BREAKFAST         = 'FB', ('Free breakfast')
     FITNESS_CENTER         = 'FC', ('Fitness Center with Gym / Workout Room')
     FREE_HIGH_SPEED_WIFI   = 'FI', ('Free High Speed Internet (WiFi)')
     FREE_PARKING           = 'FP', ('Free parking')

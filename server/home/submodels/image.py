@@ -11,11 +11,11 @@ class Image(models.Model):
         upload_to = 'images/',
     )
 
-    hotel = models.ForeignKey(
-        'hotel.Hotel',
+    home = models.ForeignKey(
+        'home.Home',
         on_delete = models.CASCADE,
-        related_name = 'hotel_images',
-        verbose_name = _('Hotel')
+        related_name = 'home_images',
+        verbose_name = _('Home')
     )
 
     class Meta:

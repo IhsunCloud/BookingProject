@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class RoomTypes(models.TextChoices):
+class HomeTypes(models.TextChoices):
     MOUNTAIN_VIEW    = 'MV', ('Mountain view')
     CITY_VIEW        = 'CT', ('City view')
     LANDMARK_VIEW    = 'LM', ('Landmark view')
@@ -12,7 +12,7 @@ class RoomTypes(models.TextChoices):
     SMOKING_ROOMS_AVAILABLE = 'SR' ,('Smoking rooms available')
 
 
-class RoomFeatures(models.TextChoices):
+class HomeFeatures(models.TextChoices):
     ALLERGY_FREE_ROOM   = 'AF', ('Allergy-free room')
     BLACKOUT_CURTAINS   = 'BC', ('Blackout curtains')
     AIR_CONDITIONING    = 'AC', ('Air conditioning')
@@ -25,7 +25,7 @@ class RoomFeatures(models.TextChoices):
 
 class PropertyAmenities(models.TextChoices):
     AIRPORT_TRANSPORTATION = 'AT', ('Airport transportation')
-    FREE_BREKFEAST         = 'FB', ('Free breakfast')
+    FREE_BREAKFAST         = 'FB', ('Free breakfast')
     FITNESS_CENTER         = 'FC', ('Fitness Center with Gym / Workout Room')
     FREE_HIGH_SPEED_WIFI   = 'FI', ('Free High Speed Internet (WiFi)')
     FREE_PARKING           = 'FP', ('Free parking')

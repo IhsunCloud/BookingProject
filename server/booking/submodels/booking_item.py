@@ -1,10 +1,10 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from painless import models as iModels
 
-class BookingItem(models.Model):
+
+class BookingItem(iModels.GenericModel):
     """
     Model to connect a booking with a related object.
     """
@@ -36,11 +36,6 @@ class BookingItem(models.Model):
         verbose_name = _('Booking'),
         help_text = _('Connection to related booking.'),
     )
-    
-    # GFK `booked_item`
-    content_type = models.ForeignKey(ContentType, on_delete= models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    booked_item = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
         """ Meta definition of Booking. """
@@ -49,7 +44,7 @@ class BookingItem(models.Model):
     def __str__(self):
         """ String representation of Booking. """
         return f'{self.booking}, {self.booked_item}'
-    
+
     def __repr__(self):
         """ String representation of Booking. """
         return self.__str__()

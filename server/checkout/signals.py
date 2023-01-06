@@ -2,7 +2,7 @@ import math
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from cart.models import OrderItem
+from checkout.models import OrderItem
 
 
 @receiver(post_save, sender = OrderItem)

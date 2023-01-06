@@ -12,7 +12,6 @@ class Bookmark(TimeStampedModel):
     Args:
         - TimeStampedModel (fk):
             timestamped
-
         - user (fk):
             user belongs the bookmark
         - hotel (fk):
