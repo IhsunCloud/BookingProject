@@ -36,11 +36,11 @@ class BusReservation(iModels.GeneralModel):
     """
     Model definition of Bus Reservation.
     ------------------------------------
-
-    Arguments:
-    ----------
-        #TODO: in progress ..
     """
+    address = iModels.AddressModel(
+        _('Address')
+    )
+
     agency = models.ForeignKey(
         'agency.Agency',
         on_delete = models.CASCADE,
