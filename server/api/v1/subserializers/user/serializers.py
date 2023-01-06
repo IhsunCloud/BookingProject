@@ -7,7 +7,7 @@ from painless.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['phone_number', 'first_name', 'last_name']
         read_only_fields = ('id', 'phone_number')
 
 

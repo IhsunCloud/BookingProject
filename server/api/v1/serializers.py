@@ -9,11 +9,11 @@ from api.v1.subserializers.booking.serializers import BookingSerializer
 from api.v1.subserializers.booking.serializers import BookingErrorSerializer
 from api.v1.subserializers.booking.serializers import BookingItemSerializer
 from api.v1.subserializers.booking.serializers import ExtraPersonInfoSerializer
-from api.v1.subserializers.bus.serializers import BusSerializer
-from api.v1.subserializers.bus.serializers import PassengerSerializer
 from api.v1.subserializers.bus.serializers import AdultSerializer
-from api.v1.subserializers.bus.serializers import UnderageSerializer
 from api.v1.subserializers.bus.serializers import BusSerializer
+from api.v1.subserializers.bus.serializers import BusReservationSerializer
+from api.v1.subserializers.bus.serializers import PassengerSerializer
+from api.v1.subserializers.bus.serializers import UnderageSerializer
 from api.v1.subserializers.checkout.serializers import OrderSerializer
 from api.v1.subserializers.checkout.serializers import OrderItemSerializer
 from api.v1.subserializers.checkout.serializers import PriceBookingSerializer

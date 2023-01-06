@@ -3,9 +3,14 @@ from api.v1.subviews.user.views import RegisterViewSet
 
 
 
+
+
 # TODO: This should be moved to sub_views directory.
+from datetime import datetime
+
 from django.utils import timezone
 
+from rest_framework import filters
 from rest_framework import viewsets
 
 from agency.models import Agency
@@ -28,15 +33,28 @@ class AirportViewSet(viewsets.ModelViewSet):
 
 
 class BusReservationViewSet(viewsets.ModelViewSet):
-	serializer_class = serializers.BusSerializer
+	serializer_class = serializers.BusReservationSerializer
 	queryset = BusReservation.objects.filter(
 		time_to_go__gt=timezone.now(), is_reserved=False).all()
+
+	search_fields = [
+		'address',
+		'time_to_go',
+		'seat_number'
+	]
+
+	def perform_create(self, serializer):
+		"""
+		The request user is set as author automatically.
+		"""
+		serializer.save(user=self.request.user)
 
 
 class HomeViewSet(viewsets.ModelViewSet):
 	serializer_class = serializers.HomeSerializer
 	queryset  = Home.objects.filter(
-		entry_at__gte= timezone.now(), is_reserved=False).all()
+		entry_at__gte= timezone.now(), is_reserved=False).all()    
+	filter_backends  = (filters.SearchFilter,)
 
 	search_fields = [
 		'address',
@@ -48,14 +66,28 @@ class HomeViewSet(viewsets.ModelViewSet):
 		'price'
 	]
 
+	def perform_create(self, serializer):
+		"""
+		The request user is set as author automatically.
+		"""
+		serializer.save(user=self.request.user)
+
 
 class HotelViewSet(viewsets.ModelViewSet):
 	serializer_class = serializers.HotelSerializer
 	queryset = Hotel.objects.filter(
 		entry_at__gte= timezone.now(), is_reserved=False).all()
+    
+	filter_backends  = (filters.SearchFilter,)
 
 	search_fields = [
 		'address',
 		'name',
 		'hotel_class'
 	]
+
+	def perform_create(self, serializer):
+		"""
+		The request user is set as author automatically.
+		"""
+		serializer.save(user=self.request.user)

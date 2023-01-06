@@ -35,7 +35,7 @@ class PassengerSerializer(serializers.ModelSerializer):
 		model  = models.Passenger
 		fields = '__all__'
 
-class BusReservationSerialBusSerializer(serializers.ModelSerializer):
+class BusReservationSerializer(serializers.ModelSerializer):
 	bus = BusSerializer()
 	agency  = AgencySerializer()
 	booking = BookingSerializer()

@@ -15,16 +15,22 @@ urlpatterns = [
 
     path('agency/', api_views_v1.AgencyViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('airport/', api_views_v1.AirportViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('booking/', api_views_v1.BookingViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('bus-reservation/', api_views_v1.BusReservationViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('home/', api_views_v1.HomeViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('hotel/', api_views_v1.HotelViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+
     path('register/', api_views_v1.RegisterViewSet.as_view(
         {'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'}))
     ]
