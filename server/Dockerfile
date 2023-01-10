@@ -1,6 +1,8 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 FROM python:3.8-slim
 
+LABEL key="Curly Bracket Company"
+
 EXPOSE 5002
 
 # Keeps Python from generating .pyc files in the container
@@ -10,9 +12,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+COPY ./requirements.txt /requirements.txt
+RUN python -m pip install -r /requirements.txt
 
+RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
